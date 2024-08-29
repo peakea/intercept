@@ -1,0 +1,23 @@
+{
+  "name": "intercept-cli",
+  "version": "1.0.0",
+  "description": "A terminal client for intercept.",
+  "main": "cli.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/peakea/intercept.git"
+  },
+  "author": "Ashley Peake",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/peakea/intercept/issues"
+  },
+  "homepage": "https://github.com/peakea/intercept#readme",
+  "devDependencies": {
+    "typescript": "^5.5.4"
+  }
+}
