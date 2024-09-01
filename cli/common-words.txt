@@ -23,6 +23,7 @@ all
 he
 she
 you
+can
 his
 her
 their
@@ -51,3 +52,4 @@ some
 into
 yes
 no
+get

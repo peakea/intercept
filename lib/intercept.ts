@@ -19,6 +19,13 @@ export class Intercept {
         }
         return result;
     }
+    
+    /**
+     * Escape a string for use in a regular expression
+     */
+    escapeRegExp(string: string): string {
+        return string.replace(/([^\w\s])/g, '\\$&');
+    }
 
     /**
      * Find patterns in a message used to encode and decode messages
@@ -30,6 +37,7 @@ export class Intercept {
         const foundPatterns: PatternSearchResult[] = [];
         // search through the message for all of the patterns
         patterns.forEach((pattern, i) => {
+            pattern = this.escapeRegExp(pattern);
             const regex = new RegExp(pattern, 'g');
             let match;
             while ((match = regex.exec(message)) !== null) {
@@ -74,32 +82,30 @@ export class Intercept {
      */
     decode(message: string, codeList: string[], wordList: string[], permutation: bigint = 0n): PatternSearchResult[] {
         // If a permutation is provided, get the nth permutation of the codes
+        let permutedCodeList = codeList;
         if (permutation !== 0n) {
-            codeList = this.getNthPermutation(codeList, permutation);
+            permutedCodeList = this.getNthPermutation(codeList, permutation);
         }
 
         // Find the codes in the message
-        let result: PatternSearchResult[] = this.findPatterns(message, codeList);
+        let result: PatternSearchResult[] = this.findPatterns(message, permutedCodeList);
 
         // Add the decoded words to the result
         for (const code of result) {
             code.code = wordList[code.codeIndex];
         }
 
-        if (wordList.length >= codeList.length) {
+        if (wordList.length >= permutedCodeList.length) {
             // Single mode
         } else {
-            console.log('decode message multi', message, wordList, permutation);
             // Multi mode
             // if codeIndex is greater than the length of the word list reduce it by the length of the word list until it fits within the word list length
             for (const code of result) {
-                console.log('code before', code);
                 code.codeIndex = code.codeIndex % wordList.length;
                 // Fix the undefined code
                 if (code.code === undefined) {
                     code.code = wordList[code.codeIndex];
                 }
-                console.log('code after', code);
             }
         }
 
@@ -193,9 +199,9 @@ export class Intercept {
 }
 
 /**
- * Code search results
+ * Pattern search results
  */
-interface PatternSearchResult {
+export interface PatternSearchResult {
     /**
      * Position of the pattern in the message
      */

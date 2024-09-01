@@ -91,6 +91,49 @@ describe("Intercept", () => {
             const actual = intercept.encode("123", numberWords.slice(), animalWords.slice());
             expect(actual).toEqual(expected);
         });
+
+        it("should encode a message using all codedWords", () => {
+            const intercept = new Intercept();
+
+            const expected = [
+                { pos: 0, codeIndex: 1, pattern: '2', code: 'dog' },
+                { pos: 0, codeIndex: 1, pattern: '2', code: 'mouse' },
+                { pos: 0, codeIndex: 1, pattern: '2', code: 'lizard' },
+                { pos: 0, codeIndex: 1, pattern: '2', code: 'toad' },
+                { pos: 0, codeIndex: 1, pattern: '2', code: 'iguana' },
+                { pos: 0, codeIndex: 1, pattern: '2', code: 'ant' },
+                { pos: 0, codeIndex: 1, pattern: '2', code: 'moth' },
+                { pos: 0, codeIndex: 1, pattern: '2', code: 'caterpillar' },
+                { pos: 0, codeIndex: 1, pattern: '2', code: 'beetle' },
+                { pos: 0, codeIndex: 1, pattern: '2', code: 'mosquito' },
+                { pos: 0, codeIndex: 1, pattern: '2', code: 'ladybug' },
+                { pos: 1, codeIndex: 0, pattern: '1', code: 'cat' },
+                { pos: 1, codeIndex: 0, pattern: '1', code: 'bird' },
+                { pos: 1, codeIndex: 0, pattern: '1', code: 'snake' },
+                { pos: 1, codeIndex: 0, pattern: '1', code: 'frog' },
+                { pos: 1, codeIndex: 0, pattern: '1', code: 'salamander' },
+                { pos: 1, codeIndex: 0, pattern: '1', code: 'gecko' },
+                { pos: 1, codeIndex: 0, pattern: '1', code: 'wasp' },
+                { pos: 1, codeIndex: 0, pattern: '1', code: 'grasshopper' },
+                { pos: 1, codeIndex: 0, pattern: '1', code: 'fly' },
+                { pos: 1, codeIndex: 0, pattern: '1', code: 'firefly' },
+                { pos: 1, codeIndex: 0, pattern: '1', code: 'spider' },
+                { pos: 2, codeIndex: 1, pattern: '2', code: 'dog' },
+                { pos: 2, codeIndex: 1, pattern: '2', code: 'mouse' },
+                { pos: 2, codeIndex: 1, pattern: '2', code: 'lizard' },
+                { pos: 2, codeIndex: 1, pattern: '2', code: 'toad' },
+                { pos: 2, codeIndex: 1, pattern: '2', code: 'iguana' },
+                { pos: 2, codeIndex: 1, pattern: '2', code: 'ant' },
+                { pos: 2, codeIndex: 1, pattern: '2', code: 'moth' },
+                { pos: 2, codeIndex: 1, pattern: '2', code: 'caterpillar' },
+                { pos: 2, codeIndex: 1, pattern: '2', code: 'beetle' },
+                { pos: 2, codeIndex: 1, pattern: '2', code: 'mosquito' },
+                { pos: 2, codeIndex: 1, pattern: '2', code: 'ladybug' }
+            ];
+            const actual = intercept.encode("212", numberWords.slice(), animalWords.slice(), 987654321n);
+            console.log(actual);
+            expect(actual).toEqual(expected);
+        });
     });
 
     describe("decode", () => {
@@ -138,7 +181,7 @@ describe("Intercept", () => {
                 { pos: 10, codeIndex: 1, pattern: 'caterpillar', code: '2' }
             ];
             const actual = intercept.decode("ladybugcatcaterpillar", animalWords.slice(), numberWords.slice(), 987654321n);
-            console.log('actual', actual,'expected', expected);
+            console.log('actual', actual, 'expected', expected);
             expect(actual).toEqual(expected);
         });
     });
